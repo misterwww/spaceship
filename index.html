@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<title>Avió animat</title>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="title" content="Revenge: the path of the good ninja">
+<meta name="description" content="Game">
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head>
+<body onload="">
+<div class="maindiv" id="maindiv">
+<div class="canvasdiv" id="canvasdiv">
+<canvas class="canvas"id="canvas" width="1024" height="768">
+Your web browser does not support canvas.
+</canvas>
+</div>
+</div><!-- maindiv -->
+<footer><!-- bla bla bla --></footer>
+</body>
+<script>/*
+        @licstart  The following is the entire license notice for the 
+        JavaScript code in this page.
+
+        Copyright (C) 2022  Bonjour
+
+        The JavaScript code in this page is free software: you can
+        redistribute it and/or modify it under the terms of the GNU
+        General Public License (GNU GPL) as published by the Free Software
+        Foundation, either version 3 of the License, or (at your option)
+        any later version.  The code is distributed WITHOUT ANY WARRANTY;
+        without even the implied warranty of MERCHANTABILITY or FITNESS
+        FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+        As additional permission under GNU GPL version 3 section 7, you
+        may distribute non-source (e.g., minimized or compacted) forms of
+        that code without the copy of the GNU GPL normally required by
+        section 4, provided you include this license notice and a URL
+        through which recipients can access the Corresponding Source.   
+
+
+        @licend  The above is the entire license notice
+        for the JavaScript code in this page.
+        */
+var aviox=-500;
+var aviosize=500;
+var audio = new Audio('GameOver.ogg');
+audio.play();
+var backgroundimg=new Image();
+var avioimg=new Image();
+function preloader() 
+    {
+    if (document.images) 
+        {
+        backgroundimg.setAttribute("src", "planeta.png");
+		avioimg.setAttribute("src", "avio.png");
+	    }
+    }
+function addLoadEvent(func) 
+    {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') 
+        {
+		window.onload = func;
+	    } 
+    else 
+        {
+    	window.onload = function() 
+            {
+			if (oldonload) 
+                {
+				oldonload();
+			    }
+			func();
+		    }
+    	}
+    }
+// CANVAS
+var canvas = document.getElementById('canvas');
+if (canvas.getContext) 
+    {
+    var ctx = canvas.getContext('2d');
+    }
+function move()
+	{
+	if (aviosize>0)
+		{ 
+    	aviox=aviox+2;
+    	aviosize=aviosize-1;
+		console.log("aviox=" + aviox + "    aviosize=" + aviosize);
+		}
+	}
+function draw() 
+    {
+    //clean canvas screen
+    canvas.width=canvas.width;
+    //screen
+    ctx.beginPath();
+	ctx.drawImage(backgroundimg,0,0,1024,768,0,0,1024,768);
+	ctx.drawImage(avioimg,0,0,50,50,aviox,390,aviosize,aviosize);
+	move();
+	}
+
+// PRELOAD IMAGES
+addLoadEvent(preloader);
+var interval=window.setInterval(draw,10);
+
+</script>
+</html>
